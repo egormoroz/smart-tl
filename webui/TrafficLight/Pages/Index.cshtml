@@ -1,0 +1,61 @@
+﻿@page 
+@model IndexModel
+@using System.Drawing
+@{
+    ViewData["Title"] = "Home page";
+}
+
+ <style>
+    .cross-background {
+    position: relative;
+}
+
+    .cross-background svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+</style>
+
+<div class="cross-background">
+    <img src="https://raw.githubusercontent.com/Fu1lerene/TrafficLight/main/cross.png" style="width:100%;height:100%">
+    <svg width="100%" height="100%">
+        
+        @foreach(Car e in Model.Cars)
+        {
+            int x = Convert.ToInt32(e.X / Model.Canvas.w * 100);
+            int y = Convert.ToInt32(e.Y / Model.Canvas.h * 100);
+            @if (e.Ratio > 1)
+            {
+                y = y > 50 ? 51 : 46;
+                <rect width="5%" height="2.5%" x="@x%" y="@y%" rx="1.25%" ry="1.25%" style="fill:@ColorTranslator.ToHtml(e.Color); stroke:black; stroke-width:0.2%;" />
+            }
+            else
+            {
+                x = x <= 46 ? 46 : 51;
+                <rect width="2.5%" height="5%" x="@x%" y="@y%" rx="1.25%" ry="1.25%" style="fill:@ColorTranslator.ToHtml(e.Color); stroke:black; stroke-width:0.2%;" />
+            }
+        }
+        @if (Model.phase == 2)
+        {
+            <rect width="3%" height="1.5%" x="51%" y="58%" style="fill:rgb(0,255,0); stroke:black; stroke-width:0.2%;" />
+            <rect width="3%" height="1.5%" x="46%" y="39.5%" style="fill:rgb(0,255,0); stroke:black; stroke-width:0.2%;" />
+            <rect width="1.5%" height="3%" x="40%" y="50.75%" style="fill:rgb(255,0,0); stroke:black; stroke-width:0.2%;" />
+            <rect width="1.5%" height="3%" x="58.5%" y="45.75%" style="fill:rgb(255,0,0); stroke:black; stroke-width:0.2%;" />
+        }
+        else
+        {
+            <rect width="3%" height="1.5%" x="51%" y="58%" style="fill:rgb(255,0,0); stroke:black; stroke-width:0.2%;" />
+            <rect width="3%" height="1.5%" x="46%" y="39.5%" style="fill:rgb(255,0,0); stroke:black; stroke-width:0.2%;" />
+            <rect width="1.5%" height="3%" x="40%" y="50.75%" style="fill:rgb(0,255,0); stroke:black; stroke-width:0.2%;" />
+            <rect width="1.5%" height="3%" x="58.5%" y="45.75%" style="fill:rgb(0,255,0); stroke:black; stroke-width:0.2%;" />
+        }
+
+
+ </svg>
+    <META HTTP-EQUIV="REFRESH" CONTENT=5>
+</div>
+
+
+
